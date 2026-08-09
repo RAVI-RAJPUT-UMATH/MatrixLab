@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>MatrixLab — Interactive Linear Algebra Toolkit</title>
+    <meta
+      name="description"
+      content="MatrixLab is a free, offline-capable linear algebra toolkit: an exact matrix calculator with step-by-step working, visualisations and lessons from basic operations to SVD."
+    />
+    <meta name="color-scheme" content="light dark" />
+    <meta name="theme-color" content="#4f46e5" />
+
+    <link rel="stylesheet" href="css/themes.css" />
+    <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="css/components.css" />
+    <link rel="stylesheet" href="css/responsive.css" />
+    <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
+  </head>
+
+  <body>
+    <!-- Focus is moved by JS rather than by the fragment, because the app uses
+         hash-based routing and "#view" would be read as a route. -->
+    <a class="skip-link" href="#view" id="skip-link">Skip to main content</a>
+
+    <div class="app">
+      <!-- ------------------------------------------------------------ -->
+      <!-- Sidebar navigation (built from the view registry in app.js)  -->
+      <!-- ------------------------------------------------------------ -->
+      <aside class="sidebar" id="sidebar" aria-label="Sections">
+        <a class="brand" href="#/dashboard">
+          <span class="brand__mark" aria-hidden="true">M</span>
+          <span>
+            <span class="brand__name">MatrixLab</span><br />
+            <span class="brand__tag">Interactive Linear Algebra Toolkit</span>
+          </span>
+        </a>
+        <nav class="nav" id="nav" aria-label="Main navigation"></nav>
+      </aside>
+
+      <div class="scrim" id="scrim" role="presentation"></div>
+
+      <!-- ------------------------------------------------------------ -->
+      <!-- Main column                                                  -->
+      <!-- ------------------------------------------------------------ -->
+      <div class="main">
+        <header class="topbar">
+          <button
+            class="btn btn--icon btn--ghost menu-toggle"
+            id="menu-toggle"
+            type="button"
+            aria-label="Show navigation"
+            aria-expanded="false"
+            aria-controls="sidebar"
+          >
+            ☰
+          </button>
+          <span class="topbar__title" id="topbar-title">Dashboard</span>
+          <span class="topbar__spacer"></span>
+          <div class="topbar__tools" id="topbar-tools"></div>
+        </header>
+
+        <main class="view" id="view" tabindex="-1">
+          <noscript>
+            <h1>MatrixLab</h1>
+            <p>
+              MatrixLab performs its mathematics in your browser, so JavaScript needs to be enabled. Nothing is sent to
+              a server and there is nothing to install.
+            </p>
+          </noscript>
+        </main>
+
+        <footer class="footer">
+          <p>
+            <strong>MatrixLab</strong> — Interactive Linear Algebra Toolkit ·
+            runs entirely in your browser, no account and no server ·
+            <span id="footer-year"></span>
+          </p>
+        </footer>
+      </div>
+    </div>
+
+    <!-- Screen-reader announcements (view changes, resizes, results). -->
+    <div id="live-region" class="sr-only" role="status" aria-live="polite"></div>
+
+    <!-- ============================================================== -->
+    <!-- Core: exact arithmetic and the Matrix type                     -->
+    <!-- ============================================================== -->
+    <script src="js/core/errors.js"></script>
+    <script src="js/core/frac.js"></script>
+    <script src="js/core/num.js"></script>
+    <script src="js/core/complex.js"></script>
+    <script src="js/core/matrix.js"></script>
+    <script src="js/core/steps.js"></script>
+    <script src="js/core/store.js"></script>
+
+    <!-- ============================================================== -->
+    <!-- Mathematics (no DOM access anywhere in these files)            -->
+    <!-- ============================================================== -->
+    <script src="js/math/operations.js"></script>
+    <script src="js/math/rowReduction.js"></script>
+    <script src="js/math/determinant.js"></script>
+    <script src="js/math/inverse.js"></script>
+    <script src="js/math/properties.js"></script>
+    <script src="js/math/equations.js"></script>
+    <script src="js/math/numeric.js"></script>
+    <script src="js/math/polynomial.js"></script>
+    <script src="js/math/eigen.js"></script>
+    <script src="js/math/subspaces.js"></script>
+    <script src="js/math/vectors.js"></script>
+    <script src="js/math/orthogonality.js"></script>
+    <script src="js/math/leastSquares.js"></script>
+    <script src="js/math/decompositions.js"></script>
+
+    <!-- ============================================================== -->
+    <!-- Content data (lessons and example matrices)                    -->
+    <!-- ============================================================== -->
+    <script src="js/data/examples.js"></script>
+    <script src="js/data/lessons.js"></script>
+
+    <!-- ============================================================== -->
+    <!-- UI layer                                                       -->
+    <!-- ============================================================== -->
+    <script src="js/ui/dom.js"></script>
+    <script src="js/ui/render.js"></script>
+    <script src="js/ui/components.js"></script>
+    <script src="js/ui/matrixInput.js"></script>
+    <script src="js/ui/router.js"></script>
+    <script src="js/viz/plot.js"></script>
+
+    <!-- ============================================================== -->
+    <!-- Views                                                          -->
+    <!-- ============================================================== -->
+    <script src="js/views/dashboard.js"></script>
+    <script src="js/views/calculator.js"></script>
+    <script src="js/views/analysis.js"></script>
+    <script src="js/views/properties.js"></script>
+    <script src="js/views/rowReduction.js"></script>
+    <script src="js/views/equations.js"></script>
+    <script src="js/views/eigen.js"></script>
+    <script src="js/views/subspaces.js"></script>
+    <script src="js/views/vectors.js"></script>
+    <script src="js/views/orthogonality.js"></script>
+    <script src="js/views/leastSquares.js"></script>
+    <script src="js/views/decompositions.js"></script>
+    <script src="js/views/transformations.js"></script>
+    <script src="js/views/visualizations.js"></script>
+    <script src="js/views/learn.js"></script>
+    <script src="js/views/examples.js"></script>
+    <script src="js/views/generator.js"></script>
+    <script src="js/views/settings.js"></script>
+
+    <script src="js/app.js"></script>
+  </body>
+</html>

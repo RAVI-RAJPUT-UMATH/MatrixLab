@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="MatrixLab">
+  <defs>
+    <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#4f46e5" />
+      <stop offset="1" stop-color="#0d9488" />
+    </linearGradient>
+  </defs>
+  <rect width="64" height="64" rx="14" fill="url(#g)" />
+  <!-- bracket pair around a 2x2 grid of entries -->
+  <g fill="none" stroke="#ffffff" stroke-width="3" stroke-linecap="round">
+    <path d="M20 16 H15 V48 H20" />
+    <path d="M44 16 H49 V48 H44" />
+  </g>
+  <g fill="#ffffff">
+    <circle cx="26" cy="26" r="3.4" />
+    <circle cx="38" cy="26" r="3.4" />
+    <circle cx="26" cy="38" r="3.4" />
+    <circle cx="38" cy="38" r="3.4" />
+  </g>
+</svg>

@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>MatrixLab — test suite</title>
+    <link rel="stylesheet" href="../css/themes.css" />
+    <link rel="stylesheet" href="../css/style.css" />
+    <link rel="stylesheet" href="../css/components.css" />
+    <link rel="stylesheet" href="../css/responsive.css" />
+    <style>
+      body { padding: 24px 20px 60px; }
+      .wrap { max-width: 940px; margin: 0 auto; }
+      .suite { border: 1px solid var(--border); border-radius: var(--radius); margin-bottom: 8px; overflow: hidden; }
+      .suite__head {
+        display: flex; align-items: center; gap: 10px; padding: 10px 14px;
+        background: var(--surface-2); cursor: pointer; font-size: 0.92rem;
+      }
+      .suite__head:hover { background: var(--surface-3); }
+      .suite__name { font-weight: 620; flex: 1; }
+      .suite__body { padding: 8px 14px 14px; border-top: 1px solid var(--border); background: var(--surface); }
+      .assertion { font-size: 0.84rem; padding: 3px 0; display: flex; gap: 8px; align-items: flex-start; }
+      .assertion__mark { flex: 0 0 auto; font-weight: 700; }
+      .pass .assertion__mark { color: var(--ok-fg); }
+      .fail .assertion__mark { color: var(--err-fg); }
+      .fail { color: var(--err-fg); }
+      .detail {
+        font-family: var(--font-mono); font-size: 0.78rem; white-space: pre-wrap;
+        background: var(--err-bg); border: 1px solid var(--err-border); border-radius: 6px;
+        padding: 8px 10px; margin: 4px 0 8px 20px;
+      }
+      .summary { position: sticky; top: 0; z-index: 5; background: var(--bg); padding-bottom: 12px; }
+    </style>
+  </head>
+
+  <body>
+    <div class="wrap">
+      <header style="margin-bottom: 18px">
+        <h1>MatrixLab — test suite</h1>
+        <p class="view__lead">
+          The same suite the command-line runner executes (<code>node tests/run-node.js</code>), running here in the
+          browser against the real modules. Every expected value is either a standard textbook result or an identity
+          that must hold — such as A·A⁻¹ = I, or the eigenvalues summing to the trace.
+        </p>
+        <p><a href="../index.html">← Back to MatrixLab</a></p>
+      </header>
+
+      <div class="summary" id="summary"></div>
+      <div id="results"></div>
+    </div>
+
+    <!-- Core -->
+    <script src="../js/core/errors.js"></script>
+    <script src="../js/core/frac.js"></script>
+    <script src="../js/core/num.js"></script>
+    <script src="../js/core/complex.js"></script>
+    <script src="../js/core/matrix.js"></script>
+    <script src="../js/core/steps.js"></script>
+
+    <!-- Mathematics -->
+    <script src="../js/math/operations.js"></script>
+    <script src="../js/math/rowReduction.js"></script>
+    <script src="../js/math/determinant.js"></script>
+    <script src="../js/math/inverse.js"></script>
+    <script src="../js/math/properties.js"></script>
+    <script src="../js/math/equations.js"></script>
+    <script src="../js/math/numeric.js"></script>
+    <script src="../js/math/polynomial.js"></script>
+    <script src="../js/math/eigen.js"></script>
+    <script src="../js/math/subspaces.js"></script>
+    <script src="../js/math/vectors.js"></script>
+    <script src="../js/math/orthogonality.js"></script>
+    <script src="../js/math/leastSquares.js"></script>
+    <script src="../js/math/decompositions.js"></script>
+
+    <!-- Content data -->
+    <script src="../js/data/examples.js"></script>
+    <script src="../js/data/lessons.js"></script>
+
+    <!-- Framework and suites -->
+    <script src="framework.js"></script>
+    <script src="suite/01-core.js"></script>
+    <script src="suite/02-analysis.js"></script>
+    <script src="suite/03-reduction.js"></script>
+    <script src="suite/04-eigen.js"></script>
+    <script src="suite/05-vectors.js"></script>
+    <script src="suite/06-decompositions.js"></script>
+    <script src="suite/07-integration.js"></script>
+
+    <script>
+      (function () {
+        'use strict';
+
+        function el(tag, className, text) {
+          const node = document.createElement(tag);
+          if (className) node.className = className;
+          if (text != null) node.textContent = text;
+          return node;
+        }
+
+        const started = Date.now();
+        const report = MLTest.run();
+        const elapsed = Date.now() - started;
+
+        const summary = document.getElementById('summary');
+        const banner = el('div', 'alert alert--' + (report.failed ? 'error' : 'ok'));
+        banner.appendChild(el('span', 'alert__icon', report.failed ? '✕' : '✓'));
+        const body = el('div', 'alert__body');
+        body.appendChild(
+          el(
+            'strong',
+            null,
+            report.failed
+              ? report.failed + ' failing assertion' + (report.failed === 1 ? '' : 's')
+              : 'All ' + report.passed + ' assertions passed'
+          )
+        );
+        body.appendChild(
+          el(
+            'div',
+            'small',
+            report.passed + ' passed, ' + report.failed + ' failed across ' + report.suites.length +
+              ' suites in ' + elapsed + ' ms'
+          )
+        );
+        banner.appendChild(body);
+        summary.appendChild(banner);
+
+        const results = document.getElementById('results');
+        report.suites.forEach(function (suite) {
+          const failed = suite.failed > 0;
+          const section = el('section', 'suite');
+
+          const head = el('div', 'suite__head');
+          head.appendChild(el('span', 'assertion__mark ' + (failed ? 'fail' : 'pass'), failed ? '✕' : '✓'));
+          head.appendChild(el('span', 'suite__name', suite.name));
+          head.appendChild(
+            el('span', 'badge' + (failed ? ' badge--err' : ' badge--ok'), suite.passed + '/' + (suite.passed + suite.failed))
+          );
+          section.appendChild(head);
+
+          const panel = el('div', 'suite__body');
+          panel.hidden = !failed; // failing suites open automatically
+          head.addEventListener('click', function () { panel.hidden = !panel.hidden; });
+
+          if (suite.error) {
+            const pre = el('div', 'detail', suite.error);
+            panel.appendChild(pre);
+          }
+          suite.assertions.forEach(function (assertion) {
+            const row = el('div', 'assertion ' + (assertion.ok ? 'pass' : 'fail'));
+            row.appendChild(el('span', 'assertion__mark', assertion.ok ? '✓' : '✕'));
+            row.appendChild(el('span', null, assertion.message || '(unnamed assertion)'));
+            panel.appendChild(row);
+            if (!assertion.ok && assertion.detail) {
+              panel.appendChild(el('div', 'detail', String(assertion.detail)));
+            }
+          });
+
+          section.appendChild(panel);
+          results.appendChild(section);
+        });
+
+        document.title = (report.failed ? '✕ ' : '✓ ') + 'MatrixLab tests — ' + report.passed + ' passed';
+      })();
+    </script>
+  </body>
+</html>

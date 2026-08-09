@@ -1,0 +1,234 @@
+/* ==========================================================================
+   MatrixLab — design tokens and theming
+   --------------------------------------------------------------------------
+   Light is the base palette. Dark is applied in two places so both the
+   explicit toggle and the "System" setting work:
+     :root[data-theme="dark"]                     → user chose Dark
+     @media (prefers-color-scheme: dark) :root:not([data-theme="light"])
+                                                  → user chose System, OS dark
+   ========================================================================== */
+
+:root {
+  /* ---- brand ---- */
+  --brand-50: #eef2ff;
+  --brand-100: #e0e7ff;
+  --brand-200: #c7d2fe;
+  --brand-300: #a5b4fc;
+  --brand-400: #818cf8;
+  --brand-500: #6366f1;
+  --brand-600: #4f46e5;
+  --brand-700: #4338ca;
+  --brand-800: #3730a3;
+
+  --accent-500: #0d9488;
+  --accent-600: #0f766e;
+
+  /**
+   * Text drawn on top of a brand-coloured fill. In dark mode --brand-600 becomes
+   * a light indigo, so the text on it has to flip to dark. Keeping that decision
+   * in one token avoids repeating theme overrides on every button variant.
+   */
+  --on-brand: #ffffff;
+
+  /* ---- semantic colour ---- */
+  --ok-bg: #ecfdf5;
+  --ok-fg: #047857;
+  --ok-border: #a7f3d0;
+  --warn-bg: #fffbeb;
+  --warn-fg: #b45309;
+  --warn-border: #fde68a;
+  --err-bg: #fef2f2;
+  --err-fg: #b91c1c;
+  --err-border: #fecaca;
+  --info-bg: #eff6ff;
+  --info-fg: #1d4ed8;
+  --info-border: #bfdbfe;
+
+  /* ---- surfaces ---- */
+  --bg: #f6f7fb;
+  --bg-elevated: #ffffff;
+  --surface: #ffffff;
+  --surface-2: #f8fafc;
+  --surface-3: #f1f5f9;
+  --sidebar-bg: #ffffff;
+  --topbar-bg: rgba(255, 255, 255, 0.85);
+  --overlay: rgba(15, 23, 42, 0.45);
+
+  /* ---- text ---- */
+  --text: #0f172a;
+  --text-soft: #475569;
+  --text-muted: #64748b;
+  --text-inverse: #ffffff;
+
+  /* ---- lines ---- */
+  --border: #e2e8f0;
+  --border-strong: #cbd5e1;
+  --grid-line: #e9edf5;
+
+  /* ---- interaction ---- */
+  --focus-ring: 0 0 0 3px rgba(99, 102, 241, 0.45);
+  --shadow-sm: 0 1px 2px rgba(15, 23, 42, 0.06);
+  --shadow: 0 1px 3px rgba(15, 23, 42, 0.08), 0 6px 16px -6px rgba(15, 23, 42, 0.12);
+  --shadow-lg: 0 12px 32px -8px rgba(15, 23, 42, 0.22);
+
+  /* ---- visualisation (canvas colours read from CSS so themes stay in sync) ---- */
+  --viz-bg: #ffffff;
+  --viz-grid: #e6eaf2;
+  --viz-grid-strong: #cfd6e4;
+  --viz-axis: #94a3b8;
+  --viz-shape: rgba(99, 102, 241, 0.18);
+  --viz-shape-line: #4f46e5;
+  --viz-original: #94a3b8;
+  --viz-v1: #4f46e5;
+  --viz-v2: #0d9488;
+  --viz-eigen1: #db2777;
+  --viz-eigen2: #ea580c;
+  --viz-point: #1e293b;
+
+  /* ---- typography ---- */
+  --font-ui: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  --font-math: 'Cambria Math', Cambria, 'Latin Modern Math', 'Times New Roman', Georgia, serif;
+  --font-mono: ui-monospace, SFMono-Regular, 'SF Mono', Menlo, Consolas, 'Liberation Mono', monospace;
+
+  /* ---- metrics ---- */
+  --radius-sm: 6px;
+  --radius: 10px;
+  --radius-lg: 16px;
+  --sidebar-w: 264px;
+  --topbar-h: 60px;
+  --space: 16px;
+}
+
+:root[data-theme='dark'] {
+  --brand-50: #1e1b4b;
+  --brand-100: #262262;
+  --brand-200: #312e81;
+  --brand-300: #4338ca;
+  --brand-400: #6366f1;
+  --brand-500: #818cf8;
+  --brand-600: #a5b4fc;
+  --brand-700: #c7d2fe;
+  --brand-800: #e0e7ff;
+
+  --accent-500: #2dd4bf;
+  --accent-600: #5eead4;
+
+  --on-brand: #0b1020;
+
+  --ok-bg: #052e26;
+  --ok-fg: #6ee7b7;
+  --ok-border: #115e52;
+  --warn-bg: #3a2c07;
+  --warn-fg: #fcd34d;
+  --warn-border: #78500a;
+  --err-bg: #3f1212;
+  --err-fg: #fca5a5;
+  --err-border: #7f1d1d;
+  --info-bg: #10233f;
+  --info-fg: #93c5fd;
+  --info-border: #1e40af;
+
+  --bg: #0b1020;
+  --bg-elevated: #121a2e;
+  --surface: #121a2e;
+  --surface-2: #172038;
+  --surface-3: #1e2942;
+  --sidebar-bg: #0e1424;
+  --topbar-bg: rgba(11, 16, 32, 0.85);
+  --overlay: rgba(2, 6, 23, 0.65);
+
+  --text: #e8ecf7;
+  --text-soft: #b6c0d6;
+  --text-muted: #8e9ab5;
+  --text-inverse: #0b1020;
+
+  --border: #253150;
+  --border-strong: #34426a;
+  --grid-line: #1f2a45;
+
+  --focus-ring: 0 0 0 3px rgba(129, 140, 248, 0.5);
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.4);
+  --shadow: 0 1px 3px rgba(0, 0, 0, 0.5), 0 8px 20px -8px rgba(0, 0, 0, 0.6);
+  --shadow-lg: 0 16px 40px -10px rgba(0, 0, 0, 0.7);
+
+  --viz-bg: #0e1424;
+  --viz-grid: #1e2a45;
+  --viz-grid-strong: #2b3a5e;
+  --viz-axis: #64748b;
+  --viz-shape: rgba(129, 140, 248, 0.22);
+  --viz-shape-line: #a5b4fc;
+  --viz-original: #64748b;
+  --viz-v1: #818cf8;
+  --viz-v2: #2dd4bf;
+  --viz-eigen1: #f472b6;
+  --viz-eigen2: #fb923c;
+  --viz-point: #e2e8f0;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme='light']) {
+    --brand-50: #1e1b4b;
+    --brand-100: #262262;
+    --brand-200: #312e81;
+    --brand-300: #4338ca;
+    --brand-400: #6366f1;
+    --brand-500: #818cf8;
+    --brand-600: #a5b4fc;
+    --brand-700: #c7d2fe;
+    --brand-800: #e0e7ff;
+
+    --accent-500: #2dd4bf;
+    --accent-600: #5eead4;
+
+    --on-brand: #0b1020;
+
+    --ok-bg: #052e26;
+    --ok-fg: #6ee7b7;
+    --ok-border: #115e52;
+    --warn-bg: #3a2c07;
+    --warn-fg: #fcd34d;
+    --warn-border: #78500a;
+    --err-bg: #3f1212;
+    --err-fg: #fca5a5;
+    --err-border: #7f1d1d;
+    --info-bg: #10233f;
+    --info-fg: #93c5fd;
+    --info-border: #1e40af;
+
+    --bg: #0b1020;
+    --bg-elevated: #121a2e;
+    --surface: #121a2e;
+    --surface-2: #172038;
+    --surface-3: #1e2942;
+    --sidebar-bg: #0e1424;
+    --topbar-bg: rgba(11, 16, 32, 0.85);
+    --overlay: rgba(2, 6, 23, 0.65);
+
+    --text: #e8ecf7;
+    --text-soft: #b6c0d6;
+    --text-muted: #8e9ab5;
+    --text-inverse: #0b1020;
+
+    --border: #253150;
+    --border-strong: #34426a;
+    --grid-line: #1f2a45;
+
+    --focus-ring: 0 0 0 3px rgba(129, 140, 248, 0.5);
+    --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.4);
+    --shadow: 0 1px 3px rgba(0, 0, 0, 0.5), 0 8px 20px -8px rgba(0, 0, 0, 0.6);
+    --shadow-lg: 0 16px 40px -10px rgba(0, 0, 0, 0.7);
+
+    --viz-bg: #0e1424;
+    --viz-grid: #1e2a45;
+    --viz-grid-strong: #2b3a5e;
+    --viz-axis: #64748b;
+    --viz-shape: rgba(129, 140, 248, 0.22);
+    --viz-shape-line: #a5b4fc;
+    --viz-original: #64748b;
+    --viz-v1: #818cf8;
+    --viz-v2: #2dd4bf;
+    --viz-eigen1: #f472b6;
+    --viz-eigen2: #fb923c;
+    --viz-point: #e2e8f0;
+  }
+}

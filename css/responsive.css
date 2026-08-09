@@ -1,0 +1,92 @@
+/* ==========================================================================
+   MatrixLab — responsive rules
+   Matrix grids are always allowed to scroll inside their own container so a
+   wide matrix can never push the page sideways on a phone.
+   ========================================================================== */
+
+@media (max-width: 1100px) {
+  .grid-3 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+
+@media (max-width: 900px) {
+  :root { --sidebar-w: 250px; }
+
+  .app { grid-template-columns: minmax(0, 1fr); }
+
+  /* Sidebar becomes an off-canvas drawer. */
+  .sidebar {
+    position: fixed;
+    inset: 0 auto 0 0;
+    width: var(--sidebar-w);
+    transform: translateX(-102%);
+    transition: transform 0.18s ease;
+    box-shadow: var(--shadow-lg);
+  }
+  .sidebar.is-open { transform: translateX(0); }
+
+  .main { grid-column: 1; }
+
+  .menu-toggle { display: inline-flex; }
+
+  .grid-2,
+  .grid-3 { grid-template-columns: minmax(0, 1fr); }
+
+  .view { padding: 18px 14px 56px; }
+}
+
+@media (max-width: 640px) {
+  body { font-size: 14.5px; }
+
+  h1 { font-size: 1.4rem; }
+
+  .topbar { padding: 0 12px; gap: 8px; }
+  .topbar__title { font-size: 0.9rem; }
+
+  /* Keep the essential controls, hide the wordier ones. */
+  .topbar .hide-sm { display: none; }
+
+  .card__head { padding: 12px 14px; }
+  .card__body { padding: 14px; }
+  .tabpanel { padding: 14px; }
+
+  .kpis { grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)); }
+  .prop-grid { grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); }
+  .tiles { grid-template-columns: repeat(auto-fill, minmax(100%, 1fr)); }
+
+  .cell-input { width: 3.6em; min-width: 3em; font-size: 0.9rem; }
+
+  .matrix__cell { font-size: 0.9rem; padding: 2px 5px; min-width: 2em; }
+
+  .value--big { font-size: 1.5rem; }
+
+  .step { padding-left: 18px; }
+
+  .minput__sizing { margin-left: 0; width: 100%; }
+
+  .btn { padding: 8px 12px; }
+  .btn--block-sm { width: 100%; }
+}
+
+@media (max-width: 420px) {
+  .matrix-row { gap: 8px; }
+  .minput__tools { gap: 4px; }
+  .minput__tools .btn { font-size: 0.76rem; padding: 4px 8px; }
+}
+
+/* Wide screens: give the reading column a comfortable ceiling. */
+@media (min-width: 1500px) {
+  .view { max-width: 1280px; }
+}
+
+@media print {
+  .sidebar,
+  .topbar,
+  .minput__tools,
+  .footer,
+  .scrim { display: none !important; }
+
+  .app { grid-template-columns: 1fr; }
+  .view { max-width: none; padding: 0; }
+  .card { break-inside: avoid; box-shadow: none; }
+  body { background: #fff; color: #000; }
+}
