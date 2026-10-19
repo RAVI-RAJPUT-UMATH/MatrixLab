@@ -21,6 +21,7 @@
    * @param {string} spec.title       Sidebar / topbar label.
    * @param {string} [spec.heading]   Page heading (defaults to title).
    * @param {string} [spec.tagline]   One-line description under the heading.
+   * @param {boolean} [spec.ownHeading] Skip the standard heading; build() renders its own <h1>.
    * @param {string} [spec.icon]
    * @param {string} [spec.group]
    * @param {(context: {path: string[], params: URLSearchParams}) => Node} spec.build
@@ -96,11 +97,13 @@
       });
 
       ui.clear(container);
-      const head = el('div.view__head', [
-        el('h1', [view.heading || view.title, view.badge ? ui.badge(view.badge, 'brand') : null]),
-        view.tagline ? el('p.view__lead', view.tagline) : null,
-      ]);
-      container.appendChild(head);
+      // A view with its own hero (the dashboard) supplies its own <h1>.
+      if (!view.ownHeading) {
+        container.appendChild(el('div.view__head', [
+          el('h1', [view.heading || view.title, view.badge ? ui.badge(view.badge, 'brand') : null]),
+          view.tagline ? el('p.view__lead', view.tagline) : null,
+        ]));
+      }
 
       const body = el('div.stack-lg');
       container.appendChild(body);

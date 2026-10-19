@@ -41,44 +41,56 @@
     heading: 'MatrixLab',
     tagline: 'Interactive Linear Algebra Toolkit — a calculator that shows its work, plus visualisations and lessons.',
     icon: '▦',
+    ownHeading: true,
     build: function () {
       const stored = ML.store.getMatrix('A');
 
-      const intro = ui.card({
-        className: 'card--accent',
-        body: el('div.stack', [
-          el('p', [
-            'Every calculation here answers three questions: ',
-            el('strong', 'what is this'),
-            ', ',
-            el('strong', 'how is it worked out'),
-            ', and ',
-            el('strong', 'what is the answer'),
-            '. Results come with the real steps the algorithm took — not a canned script.',
+      const preview = el('div.hero__preview', { 'aria-hidden': 'true' }, [
+        el('div.hero-card', [
+          el('div.hero-card__top', [
+            el('span.hero-card__pill', 'det A = 5'),
+            ui.badge('2 × 2', 'brand'),
           ]),
-          el('p.small.muted', [
-            'Entries can be whole numbers, decimals or fractions such as ',
-            el('code', '3/4'),
-            '. Elimination, determinants, inverses and solving all run in exact rational arithmetic, so ',
-            el('code', '1/3'),
-            ' stays ',
-            el('code', '1/3'),
-            ' and a singular matrix is never mistaken for an invertible one.',
+          el('div.hero-card__matrix', [ui.renderMatrix(ML.Matrix.from([[2, 1], [1, 3]]), { label: 'A =' })]),
+          el('div.hero-card__lines', [el('span'), el('span')]),
+          el('div.hero-card__why', 'Because 2·3 − 1·1 = 5 ≠ 0, A is invertible.'),
+        ]),
+      ]);
+
+      const intro = el('section.hero', [
+        el('div', [
+          el('p.hero__eyebrow', 'Interactive linear algebra toolkit'),
+          el('h1.hero__title', ['Stop guessing.', el('em', 'See the working.')]),
+          el('p.hero__lead', [
+            'Enter a matrix. MatrixLab works it out in exact fractions and always shows you ',
+            el('strong', 'how'),
+            ' — the real steps the algorithm took, not a canned script.',
           ]),
-          el('div.row', [
-            ui.button('Open the calculator', {
-              variant: 'primary',
+          el('div.row.hero__actions', [
+            el('button.btn.btn--primary.btn--lg', {
+              type: 'button',
+              text: 'Open the calculator',
               onClick: function () { ML.router.navigate('calculator'); },
             }),
             ML.getView('learn')
-              ? ui.button('Start learning', { onClick: function () { ML.router.navigate('learn'); } })
+              ? el('button.btn.btn--lg', {
+                  type: 'button',
+                  text: 'Start learning',
+                  onClick: function () { ML.router.navigate('learn'); },
+                })
               : null,
             ML.getView('examples')
-              ? ui.button('Browse examples', { onClick: function () { ML.router.navigate('examples'); } })
+              ? ui.button('Browse examples', { variant: 'ghost', onClick: function () { ML.router.navigate('examples'); } })
               : null,
           ]),
+          el('ul.hero__points', [
+            el('li', [el('strong', 'Exact'), ' — 1/3 stays 1/3']),
+            el('li', [el('strong', 'Step by step'), ' working for every result']),
+            el('li', [el('strong', 'Offline'), ', no account, no server']),
+          ]),
         ]),
-      });
+        preview,
+      ]);
 
       const tiles = el(
         'div.tiles',

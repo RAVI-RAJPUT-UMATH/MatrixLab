@@ -31,13 +31,13 @@
   .grid-2,
   .grid-3 { grid-template-columns: minmax(0, 1fr); }
 
-  .view { padding: 18px 14px 56px; }
+  .view { padding: 24px 16px 56px; }
 }
 
 @media (max-width: 640px) {
   body { font-size: 14.5px; }
 
-  h1 { font-size: 1.4rem; }
+  h1 { font-size: 1.85rem; }
 
   .topbar { padding: 0 12px; gap: 8px; }
   .topbar__title { font-size: 0.9rem; }
